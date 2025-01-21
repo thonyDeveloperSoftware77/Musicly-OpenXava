@@ -41,7 +41,7 @@ public class Album {
     // Validaciones personalizadas
     @PrePersist
     @PreUpdate
-    private void validarCampos() {
+    public void validarCampos() {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre del álbum no puede estar vacío.");
         }

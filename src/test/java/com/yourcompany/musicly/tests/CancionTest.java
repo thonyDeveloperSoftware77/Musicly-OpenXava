@@ -1,13 +1,12 @@
 package com.yourcompany.musicly.tests;
 
-import static org.junit.Assert.*;
-import org.junit.Before;
-import org.junit.Test;
-import com.yourcompany.musicly.model.Cancion;
-import com.yourcompany.musicly.model.Genero;
-import com.yourcompany.musicly.model.Album;
-import com.yourcompany.musicly.model.Artista;
+import static org.junit.Assert.assertEquals;
+
 import java.util.*;
+
+import org.junit.*;
+
+import com.yourcompany.musicly.model.*;
 
 public class CancionTest {
 
@@ -29,7 +28,7 @@ public class CancionTest {
         album.setId(1L);
         album.setNombre("Álbum de Prueba");
         album.setFechaLanzamiento(new Date());
-        album.setArtistaPrincipal(new Artista());
+        album.setArtistas(new ArrayList<>());
         album.setCanciones(new ArrayList<>());
 
         // Configurar artistas

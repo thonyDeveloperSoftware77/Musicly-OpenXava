@@ -36,32 +36,9 @@ public class Playlist {
 
     @ReadOnly
     @Calculation("sum(canciones.reproducciones)")
-    int popularidad; // Popularidad basada en reproducciones de las canciones
+    int popularidad;
 
-    // Define el límite en segundos (3 horas = 10800 segundos)
-    private static final int LIMITE_DURACION_SEGUNDOS = 10800;
 
-    // Eliminamos los métodos @PrePersist y @PreUpdate
-
-    /**
-     * Calcula la duración total de la playlist en minutos.
-     * Este método puede ser utilizado en la interfaz de usuario para mostrar la duración total.
-     */
-    @Depends("canciones")
-    public float getDuracionTotal() {
-        if (canciones == null || canciones.isEmpty()) {
-            return 0;
-        }
-        float totalMinutos = 0.0f;
-        for (Cancion cancion : canciones) {
-            totalMinutos += cancion.getDuracion();
-        }
-        // Ajustar los segundos que excedan los 60 para convertirlos en minutos
-        int minutosExtra = (int) (totalMinutos / 60);
-        float segundos = totalMinutos % 60;
-        totalMinutos = minutosExtra + (segundos / 100); // Mantener división por 100 ya que representa segundos
-        return totalMinutos;
-    }
 
     /**
      * Método para obtener la duración total en segundos.
@@ -91,11 +68,10 @@ public class Playlist {
     public int getTotalPopularidad() {
         int popularidad = 0;
         for (Cancion cancion : canciones) {
-            popularidad += cancion.getPopularidad();
+            popularidad += cancion.getReproducciones();
         }
         return popularidad;
     }
-
     /**
      * Método auxiliar para obtener la duración total en formato HH:MM:SS.
      * Utiliza la duración total en segundos para formatear la cadena.
@@ -113,6 +89,7 @@ public class Playlist {
     public String getPopulation() {
         return "Population: " + getTotalPopularidad();
     }
+
 
     // Constructor por defecto
     public Playlist() {

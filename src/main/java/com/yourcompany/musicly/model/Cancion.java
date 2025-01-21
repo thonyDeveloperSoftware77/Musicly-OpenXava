@@ -49,17 +49,16 @@ public class Cancion {
     private List<Playlist> playlists = new ArrayList<>();
 
     @PreRemove
-    private void preRemove() {
+    public void preRemove() {
         for (Playlist playlist : new ArrayList<>(playlists)) {
             playlist.getCanciones().remove(this);
         }
     }
 
 
-    // ✅ Validación personalizada para la duración
     @PrePersist
     @PreUpdate
-    private void validarDuracion() {
+    public void validarDuracion() {
         if (duracion <= 0) {
             throw new IllegalArgumentException("La duración debe ser un valor positivo mayor a 0.");
         }
